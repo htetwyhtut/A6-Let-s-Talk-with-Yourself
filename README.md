@@ -51,8 +51,8 @@ How to run the web app
 
 ## How to use website
 1. Open a web browser and navigate to http://127.0.0.1:5000.
-2. Enter a sentence  in input field.
-3. Click "Generate Response" button,
+2. Enter a sentence  in the text field.
+3. Click "Chat" button,
 4. The response of the chat bot will be displayed on the screen.
 
 ## Screenshot of my web app

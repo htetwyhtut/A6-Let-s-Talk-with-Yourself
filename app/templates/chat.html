@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        background-color: #E6F0FF; /* Light blue background */
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        color: #003366; /* Dark blue for title */
+        font-size: 2.5em;
+        text-align: center;
+    }
+    #chat-history {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+    }
+    .exchange {
+        margin: 10px 0;
+    }
+    .sources {
+        font-size: 0.9em;
+        color: #555;
+    }
+    form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    input[type="text"] {
+        width: 60%;
+        padding: 10px;
+        border: 2px solid #007BFF; /* Blue border */
+        border-radius: 5px;
+        background-color: #F0F8FF; /* Very light blue input background */
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007BFF; /* Blue button */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+    .suggested-questions {
+        margin-top: 20px;
+    }
+    .suggested-questions h2 {
+        color: #003366; /* Dark blue heading */
+        font-size: 1.5em;
+    }
+    .suggested-questions ul {
+        list-style: none;
+        padding: 0;
+    }
+    .suggested-questions li {
+        margin: 10px 0;
+    }
+    .suggested-questions button {
+        background-color: #ADD8E6; /* Light blue for question buttons */
+        color: #003366; /* Dark blue text */
+        border: none;
+        padding: 10px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .suggested-questions button:hover {
+        background-color: #87CEEB; /* Slightly darker blue on hover */
+    }
+    .student-info {
+        text-align: center;
+        color: #4682B4; /* Medium blue for student info */
+        font-size: 0.9em;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container">
+    <h1>Chat with Elon Musk</h1>
+    <div id="chat-history">
+        {% for exchange in chat_history %}
+        <div class="exchange">
+            <p><strong>You:</strong> {{ exchange.question }}</p>
+            <p><strong>Elon:</strong> {{ exchange.answer }}</p>
+            <p class="sources"><strong>Sources:</strong>
+                {% for source in exchange.sources %}
+                    {% if source.startswith('http') %}
+                        <a href="{{ source }}" target="_blank">{{ source }}</a>
+                    {% else %}
+                        {{ source }}
+                    {% endif %}
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+    <form method="POST">
+        <input type="text" name="question" placeholder="Ask a question...">
+        <button type="submit">Chat</button>
+    </form>
+    <div class="suggested-questions">
+        <h2>Suggested Questions</h2>
+        <ul>
+            <li><button type="button" onclick="populateQuestion('How old are you?')">How old are you?</button></li>
+            <li><button type="button" onclick="populateQuestion('What is your highest level of education?')">What is your highest level of education?</button></li>
+            <li><button type="button" onclick="populateQuestion('What major or field of study did you pursue during your education?')">What major or field of study did you pursue during your education?</button></li>
+            <li><button type="button" onclick="populateQuestion('How many years of work experience do you have?')">How many years of work experience do you have?</button></li>
+            <li><button type="button" onclick="populateQuestion('What type of work or industry have you been involved in?')">What type of work or industry have you been involved in?</button></li>
+            <li><button type="button" onclick="populateQuestion('Can you describe your current role or job responsibilities?')">Can you describe your current role or job responsibilities?</button></li>
+            <li><button type="button" onclick="populateQuestion('What are your core beliefs regarding the role of technology in shaping society?')">What are your core beliefs regarding the role of technology in shaping society?</button></li>
+            <li><button type="button" onclick="populateQuestion('How do you think cultural values should influence technological advancements?')">How do you think cultural values should influence technological advancements?</button></li>
+            <li><button type="button" onclick="populateQuestion('As a master’s student, what is the most challenging aspect of your studies so far?')">As a master’s student, what is the most challenging aspect of your studies so far?</button></li>
+            <li><button type="button" onclick="populateQuestion('What specific research interests or academic goals do you hope to achieve during your time as a master’s student?')">What specific research interests or academic goals do you hope to achieve during your time as a master’s student?</button></li>
+        </ul>
+    </div>
+    <p class="student-info">Student Name: WIN MYINT @ HTET WAI YAN HTUT (William) | Student ID: t12356</p>
+</div>
+
+<script>
+function populateQuestion(question) {
+    document.querySelector('input[name="question"]').value = question;
+}
+</script>
+{% endblock %}
